@@ -11,7 +11,12 @@ export class RabbitMqSetup {
   public async init(): Promise<void> {
     await this.getConnection();
     await this.createChannel();
-    await this.channel.assertQueue(this.QUEUE);
+    await this.channel.assertQueue(this.QUEUE, {
+      durable: true,
+      arguments: {
+        "x-queue-type": "quorum",
+      },
+    });
   }
 
   public sendMessage(payload: any): void {
