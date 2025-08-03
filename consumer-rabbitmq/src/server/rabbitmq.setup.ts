@@ -40,7 +40,7 @@ export class SetupRabbitMq {
             const content = message.content.toString();
             console.log(`[x] Mensagem recebida: ${content}`);
             this.channel?.ack(message);
-            this.service.handleMessage(JSON.parse(message.content.toString()));
+            this.service.handleMessage(JSON.parse(content.toString()));
           }
         },
         { noAck: false }
